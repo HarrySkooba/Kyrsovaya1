@@ -1,0 +1,99 @@
+﻿<Page x:Class="WpfApp1.DOP"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp1"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="DOP">
+    <Page.Resources>
+        <DataTemplate x:Key="productView">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Border  Padding="10" BorderThickness="1" BorderBrush="White" Margin="3">
+                    <StackPanel TextBlock.FontWeight="Bold" TextBlock.Foreground="White" TextBlock.FontSize="14">
+                        <TextBlock Text="{Binding Lastname, StringFormat=Фамилия: {0}}"/>
+                        <TextBlock Text="{Binding Firstname, StringFormat=Имя: {0}}"/>
+                        <TextBlock Text="{Binding Surname, StringFormat=Отчество: {0}}"/>
+                        <TextBlock Text="{Binding Phone, StringFormat=Номер: Тел. {0}}"/>
+                        <TextBlock Text="{Binding Arrivaldate, StringFormat=Дата въезда: {0}}"/>
+                        <TextBlock Text="{Binding Departuredate, StringFormat=Дата выезда: {0}}"/>
+                        <TextBlock Text="{Binding Addition, StringFormat=Доп.Услуги: {0}}"/>
+                        <TextBlock Text="{Binding Pasportinfo, StringFormat=Паспорт. данные: {0}}"/>
+                        <TextBlock Text="{Binding IdroomNavigation.Room1, StringFormat=Номер комнаты: {0}}"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </DataTemplate>
+        <Style x:Key="Combobox" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Background" Value="#FF122F36"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" BorderThickness="1" Background="{TemplateBinding Background}" BorderBrush="White">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <EventTrigger RoutedEvent="PreviewMouseDown">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ThicknessAnimation Storyboard.TargetProperty="Margin" Duration="0:0:0.100" To="2, 2, 0, 0">
+
+                                        </ThicknessAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="PreviewMouseUp">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ThicknessAnimation Storyboard.TargetProperty="Margin" Duration="0:0:0.300" To="0">
+                                        </ThicknessAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    <Page.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FF1E524C"/>
+            <GradientStop Color="#FF0D1E2B" Offset="0.999"/>
+        </LinearGradientBrush>
+    </Page.Background>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="420"/>
+        </Grid.RowDefinitions>
+        <ListBox Background="Transparent" HorizontalContentAlignment="Stretch" ItemsSource="{Binding AddService, UpdateSourceTrigger=PropertyChanged}" ItemTemplate="{StaticResource productView}" SelectedItem="{Binding Selected_AddService}" Grid.Row="2">
+            <ListBox.ContextMenu>
+                <ContextMenu>
+
+                </ContextMenu>
+            </ListBox.ContextMenu>
+        </ListBox>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="breakfast" Content="Завтрак" Click="bf_Click" Grid.Column="0" FontSize="15" Foreground="White" Style="{StaticResource Combobox}"/>
+            <Button x:Name="dinner" Content="Ужин" Click="dinner_Click" Grid.Column="2" FontSize="15" Foreground="White" Style="{StaticResource Combobox}"/>
+            <Button x:Name="lunch" Content="Обед" Click="lunch_Click" Grid.Column="1" FontSize="15" Foreground="White" Style="{StaticResource Combobox}"/>
+            <Button x:Name="laundry" Content="Прачечная" Click="laundry_Click" Grid.Column="3" FontSize="15" Foreground="White" Style="{StaticResource Combobox}"/>
+            <Button x:Name="spa" Content="Спа" Click="spa_Click" Grid.Column="4" FontSize="15" Foreground="White" Style="{StaticResource Combobox}"/>
+        </Grid>
+    </Grid>
+</Page>
